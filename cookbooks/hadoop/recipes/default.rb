@@ -18,17 +18,22 @@ end
 
 #Java 설치
 bash 'java_install' do
-  code <<-EOH
+  code <<-EOF
     curl -LO 'http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm' -H 'Cookie: oraclelicense=accept-securebackup-cookie'
     rpm -i jdk-8u111-linux-x64.rpm
     rm jdk-8u111-linux-x64.rpm
-    EOH
+    EOF
 end
+
 ENV['JAVA_HOME'] = '/usr/java/default'
 ENV['PATH'] = "#{ENV['PATH']}:#{ENV['JAVA_HOME']}/bin"
 
 bash 'java_link' do
-  code <<-EOH
+  code <<-EOF
     rm /usr/bin/java && ln -s $JAVA_HOME/bin/java /usr/bin/java
-    EOH
+
+    echo $JAVA_HOME
+    echo $PATH
+    
+    EOF
 end
