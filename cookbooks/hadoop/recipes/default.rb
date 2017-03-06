@@ -30,7 +30,7 @@ end
 bash 'hadoop_install' do
   code <<-EOF
     curl -LO http://apache.tt.co.kr/hadoop/common/hadoop-#{node['hadoop.version']}/hadoop-#{node['hadoop.version']}.tar.gz | tar -xz -C /usr/local/
-    ln -s /usr/local/hadoop-#{node['hadoop.version']} hadoop
+    ln -s /usr/local/hadoop-#{node['hadoop.version']} /usr/local/hadoop
     mkdir -p /usr/local/hadoop/logs
     EOF
 end
