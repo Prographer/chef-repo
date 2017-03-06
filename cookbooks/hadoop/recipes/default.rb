@@ -22,8 +22,13 @@ bash 'java_install' do
     curl -LO 'http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm' -H 'Cookie: oraclelicense=accept-securebackup-cookie'
     rpm -i jdk-8u111-linux-x64.rpm
     rm jdk-8u111-linux-x64.rpm
-    ln -s $JAVA_HOME/bin/java /usr/bin/java
     EOH
 end
 ENV['JAVA_HOME'] = '/usr/java/default'
 ENV['PATH'] = "#{ENV['PATH']}:#{ENV['JAVA_HOME']}/bin"
+
+bash 'java_link' do
+  code <<-EOH
+    rm /usr/bin/java && ln -s $JAVA_HOME/bin/java /usr/bin/java
+    EOH
+end
