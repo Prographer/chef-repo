@@ -26,4 +26,4 @@ bash 'java_install' do
     EOH
 end
 ENV['JAVA_HOME'] = '/usr/java/default'
-ENV['PATH'] = "#{ENV['PATH']}:#{ENV['JAVA_HOME']/bin}"
+ENV['PATH'] = "#{ENV['PATH']}:#{ENV['JAVA_HOME']}/bin"
