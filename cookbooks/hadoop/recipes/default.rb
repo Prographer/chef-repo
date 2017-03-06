@@ -49,6 +49,8 @@ ENV['YARN_CONF_DIR']        = "#{ENV['HADOOP_PREFIX']}/etc/hadoop"
 ENV['PATH'] = "#{ENV['PATH']}:#{ENV['JAVA_HOME']}/bin:#{ENV['HADOOP_PREFIX']}/bin:#{ENV['HADOOP_PREFIX']}/sbin"
 
 bash 'hadoop_env_setting' do
-    sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/java/default\nexport HADOOP_PREFIX=/usr/local/hadoop\nexport HADOOP_PREFIX=/usr/local/hadoop\n:' /usr/local/hadoop/etc/hadoop/hadoop-env.sh
-    sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop/:' /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+    code <<-EOF
+        sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/java/default\nexport HADOOP_PREFIX=/usr/local/hadoop\nexport HADOOP_PREFIX=/usr/local/hadoop\n:' /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+        sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop/:' /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+    EOF
 end
