@@ -10,7 +10,7 @@ execute "yum update" do
   action :nothing
 end
 #Package 설치
-%w{initscripts openssh-server openssh-clients}.each do |pkg|
+%w{initscripts openssh-server openssh-clients tar}.each do |pkg|
     package pkg do
         action :install
     end
@@ -29,7 +29,7 @@ end
 # hadoop 설치
 bash 'hadoop_install' do
   code <<-EOF
-    curl -Ls http://apache.tt.co.kr/hadoop/common/hadoop-#{node['hadoop-version']}/hadoop-#{node['hadoop-version']}.tar.gz | tar -xz -C /usr/local/
+    curl -Ls http://apache.tt.co.kr/hadoop/common/hadoop-#{node['hadoop.version']}/hadoop-#{node['hadoop.version']}.tar.gz | tar -xz -C /usr/local/
     cd /usr/local && ln -s ./hadoop-$HADOOP_VERSION hadoop
     cd /usr/local/hadoop && mkdir -p logs
     EOF
