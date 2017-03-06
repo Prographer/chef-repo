@@ -29,9 +29,9 @@ end
 # hadoop 설치
 bash 'hadoop_install' do
   code <<-EOF
-    curl -Ls http://apache.tt.co.kr/hadoop/common/hadoop-#{node['hadoop.version']}/hadoop-#{node['hadoop.version']}.tar.gz | tar -xz -C /usr/local/
-    cd /usr/local && ln -s ./hadoop-#{node['hadoop.version']} hadoop
-    cd /usr/local/hadoop && mkdir -p logs
+    curl -LO http://apache.tt.co.kr/hadoop/common/hadoop-#{node['hadoop.version']}/hadoop-#{node['hadoop.version']}.tar.gz | tar -xz -C /usr/local/
+    ln -s /usr/local/hadoop-#{node['hadoop.version']} hadoop
+    mkdir -p /usr/local/hadoop/logs
     EOF
 end
 
