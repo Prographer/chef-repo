@@ -50,7 +50,7 @@ ENV['PATH'] = "#{ENV['PATH']}:#{ENV['JAVA_HOME']}/bin:#{ENV['HADOOP_PREFIX']}/bi
 
 bash 'hadoop_env_setting' do
     code <<-EOF
-        sed -i "/^export JAVA_HOME/ s:.*:export JAVA_HOME=#{ENV['JAVA_HOME']}\nexport HADOOP_PREFIX=#{ENV['HADOOP_PREFIX']}\n:" #{ENV['HADOOP_CONF_DIR']}/hadoop-env.sh
-        sed -i "/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=#{ENV['HADOOP_CONF_DIR']}:" #{ENV['HADOOP_CONF_DIR']}/hadoop-env.sh
+        sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/java/default\nexport HADOOP_PREFIX=/usr/local/hadoop\n:' /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+        sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop:' /usr/local/hadoop/etc/hadoop/hadoop-env.sh
     EOF
 end
