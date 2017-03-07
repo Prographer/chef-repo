@@ -6,25 +6,36 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-execute "yum update" do
+execute "apt-get update" do
   action :nothing
 end
 #Package 설치
-%w{initscripts openssh-server openssh-clients tar}.each do |pkg|
+%w{initscripts openssh-server openssh-client rsync curl tar}.each do |pkg|
     package pkg do
         action :install
     end
 end
 
-#Java 설치
+#Java 설치(Centos)
+# bash 'java_install' do
+#   code <<-EOF
+#     curl -LO 'http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm' -H 'Cookie: oraclelicense=accept-securebackup-cookie'
+#     rpm -i jdk-8u111-linux-x64.rpm
+#     rm jdk-8u111-linux-x64.rpm
+#     rm /usr/bin/java && ln -s /usr/java/default/bin/java /usr/bin/java
+#     EOF
+# end
+
+#Java 설치 (Ubuntu)
 bash 'java_install' do
-  code <<-EOF
-    curl -LO 'http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm' -H 'Cookie: oraclelicense=accept-securebackup-cookie'
-    rpm -i jdk-8u111-linux-x64.rpm
-    rm jdk-8u111-linux-x64.rpm
-    rm /usr/bin/java && ln -s /usr/java/default/bin/java /usr/bin/java
+   code <<-EOF
+    mkdir -p /usr/java/default && \
+    curl -Ls 'http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.tar.gz' -H 'Cookie: oraclelicense=accept-securebackup-cookie' | \
+    tar --strip-components=1 -xz -C /usr/java/default/
+    ln -s /usr/java/default/bin/java /usr/bin/java
     EOF
 end
+
 
 # hadoop 설치
 bash 'hadoop_install' do
